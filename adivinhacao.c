@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
@@ -7,11 +9,19 @@ int main()
     printf("*Adivinhe o número secreto!*\n");
     printf("****************************\n\n");
 
-    //Variáveis do jogo
-    int numerosecreto = 42;
+    //Gerador de número aleatório
+    int sec = time(0);
+    srand(sec);
+    int gerador = rand();
 
+    //Variáveis do jogo
     int chute;
+
+    int numerosecreto = gerador % 100;
     int tentativas = 1;
+    double pontos = 1000;
+
+    
 
     //Jogo
     while(1){
@@ -41,9 +51,17 @@ int main()
             printf("O número secreto é maior que o seu chute\n\n");
         }
         tentativas++;
+
+        //Sistema de pontuação
+        double pontosperdidos = abs(chute - numerosecreto) / (double) 2;
+        
+        pontos = pontos - pontosperdidos;
     }
 
+    //Resultado do jogo
     printf("Game Over");
+
+    printf("Pontuação final: %.2f", pontos);
 
     return 0;
 }
